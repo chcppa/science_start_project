@@ -1,9 +1,0 @@
-pydantic~=1.10.4
-googletrans~=3.1.0a0
-SQLAlchemy~=2.0.2
-ParallelDots~=3.2.14
-uvicorn~=0.20.0
-fastapi~=0.91.0
-alembic~=1.9.3
-passlib~=1.7.4
-starlette~=0.24.0

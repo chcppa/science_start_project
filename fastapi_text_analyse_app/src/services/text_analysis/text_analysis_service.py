@@ -18,6 +18,7 @@ from services.text_analysis.models import (
     SecondModeResponse,
     ThirdModeResponse
 )
+
 from settings import settings
 
 config.set_api_key(settings.paralleldots_api_key)  # check "set_api_key" implementation to edit path to *.cfg
@@ -56,7 +57,7 @@ class TextAnalysisService:
         Get the highest subject from some percentages.
         """
         subject = sorted(analysis_result, key=lambda x: x["confidence_score"], reverse=True)[0]
-        subject["confidence_score"] = int(round(subject["confidence_score"] * 100))  # type: ignore
+        subject["confidence_score"] = int(round(subject["confidence_score"] * 100))
 
         return ClassificationAnalysisResponse(**subject)
 

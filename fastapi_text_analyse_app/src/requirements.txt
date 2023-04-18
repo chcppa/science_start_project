@@ -1,3 +1,4 @@
+psycopg2
 pydantic~=1.10.4
 googletrans~=3.1.0a0
 SQLAlchemy~=2.0.2
@@ -10,4 +11,3 @@ starlette~=0.24.0
 python-jose[cryptography]
 bcrypt
 python-multipart
-psycopg2

@@ -85,6 +85,78 @@ async def third_mode(*, user_id: int = Depends(get_current_user_id),
 
     return query_service.create_third_mode_query(query_data)
 
+#_________________________
+@router.post("/guest_mode/first/", response_model=FirstModeQuery)
+async def first_guest_mode(*,
+                     text: TextRequest,
+                     query_service: QueryHistoryService = Depends()):
+    """
+    Route for analyse input text by first mode.
+    """
+    translator_service = TranslatorService(TranslateTextRequest(text_to_translate=text.text))
+    translated_text = await translator_service.text_to_english()
+
+    text_analysis_service = TextAnalysisService(text=translated_text)
+
+    analysis_result = await text_analysis_service.analyse_by_first_mode()
+
+    query_data = dict(
+        user_id=user_id,
+        **analysis_result.classification_result.dict(),
+        original_text=text.text,
+        query_date=datetime.utcnow())
+
+    return query_service.create_first_mode_query(query_data)
+
+
+@router.post("/guest_mode/second/", response_model=SecondModeQuery)
+async def second_mode(*, user_id: int = Depends(get_current_user_id),
+                      text: TextRequest,
+                      query_service: QueryHistoryService = Depends()):
+    """
+    Route for analyse input text by second mode.
+    """
+    translator_service = TranslatorService(TranslateTextRequest(text_to_translate=text.text))
+    translated_text = await translator_service.text_to_english()
+
+    text_analysis_service = TextAnalysisService(text=translated_text)
+
+    analysis_result = await text_analysis_service.analyse_by_second_mode()
+
+    query_data = dict(
+        user_id=0,
+        **analysis_result.sentiment_analysis_result.dict(),
+        **analysis_result.emotion_analysis_result.dict(),
+        original_text=text.text,
+        query_date=datetime.utcnow())
+
+    return query_service.create_second_mode_query(query_data)
+
+
+@router.post("/guest_mode/third/", response_model=ThirdModeQuery)
+async def third_mode(*, user_id: int = Depends(get_current_user_id),
+                     text: TextRequest,
+                     query_service: QueryHistoryService = Depends()):
+    """
+    Route for analyse input text by third mode.
+    """
+    translator_service = TranslatorService(TranslateTextRequest(text_to_translate=text.text))
+    translated_text = await translator_service.text_to_english()
+
+    text_analysis_service = TextAnalysisService(text=translated_text)
+
+    analysis_result = await text_analysis_service.analyse_by_third_mode()
+
+    query_data = dict(
+        user_id=0,
+        **analysis_result.abuse_analysis_result.dict(),
+        **analysis_result.emotion_analysis_result.dict(),
+        original_text=text.text,
+        query_date=datetime.utcnow()
+    )
+
+    return query_service.create_third_mode_query(query_data)
+#_____________________________
 
 @router.get("/mode/first/one", response_model=FirstModeQuery)
 async def get_one_of_first_mode(*, user_id: int = Depends(get_current_user_id),

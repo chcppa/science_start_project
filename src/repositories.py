@@ -14,7 +14,7 @@ from orm.tables import (
 
 class BaseRepository:
 
-    def __init__(self, session_obj: Session):
+    def __init__(self, session_obj: Session = None):
         """
         Repositories can set up a session on their own.
         """

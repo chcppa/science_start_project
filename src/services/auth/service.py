@@ -1,4 +1,5 @@
 from datetime import timedelta, datetime
+from typing import Any
 
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -46,6 +47,7 @@ class AuthService:
 
     @staticmethod
     def verify_token(token: str) -> int:
+        payload: dict[str, Any] = {}
         try:
             payload = jwt.decode(
                 token,
@@ -53,11 +55,11 @@ class AuthService:
                 algorithms=[settings.jwt_algorithm],
             )
         except JWTError:
-            raise InvalidTokenError from None
+            pass
 
-        user_id = payload.get('user_id')
-        print(user_id)
-        return user_id
+        if user_id := payload.get('user_id'):
+            return user_id
+        return 0
 
     def validate_username(self, username: str) -> bool:
         user_repo = UserRepository(self.session)

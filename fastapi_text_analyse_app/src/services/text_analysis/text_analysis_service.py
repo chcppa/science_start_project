@@ -30,7 +30,7 @@ class TextAnalysisService:
         self.text = TextRequest(text=text)
 
     @staticmethod
-    def get_the_most_important_fields(analysis_result: dict[str, float], num_of_fields: int) -> dict[str, float]:
+    def get_the_most_important_fields(analysis_result, num_of_fields: int):
         """
         Return the highest fields by value
         """
@@ -43,7 +43,7 @@ class TextAnalysisService:
         return dict(sorted_data)
 
     @staticmethod
-    def round_dict_values(data: dict[str, float]) -> dict[str, int]:
+    def round_dict_values(data):
         """
         Convert values to percents.
         """
@@ -52,7 +52,7 @@ class TextAnalysisService:
 
     @classmethod
     def parse_the_main_text_subject(cls,
-                                    analysis_result: list[dict[str, str | float]]) -> ClassificationAnalysisResponse:
+                                    analysis_result) -> ClassificationAnalysisResponse:
         """
         Get the highest subject from some percentages.
         """
@@ -62,20 +62,20 @@ class TextAnalysisService:
         return ClassificationAnalysisResponse(**subject)
 
     def sentiment_analyse(self) -> SentimentAnalysisResponse:
-        result: dict[str, int] = self.round_dict_values(sentiment(self.text.text)["sentiment"])
+        result = self.round_dict_values(sentiment(self.text.text)["sentiment"])
 
         return SentimentAnalysisResponse(**result)
 
     def classificate(self) -> ClassificationAnalysisResponse:
-        analysis_result: list[dict[str, str | float]] = taxonomy(self.text.text)["taxonomy"]
+        analysis_result = taxonomy(self.text.text)["taxonomy"]
 
         subject = self.parse_the_main_text_subject(analysis_result)
 
         return subject
 
     def emotion_analysis(self) -> EmotionAnalysisResponse:
-        analysis_result: dict[str, float] = emotion(self.text.text)["emotion"]
-        parsed_result: dict[str, int] = self.round_dict_values(
+        analysis_result = emotion(self.text.text)["emotion"]
+        parsed_result = self.round_dict_values(
             self.get_the_most_important_fields(
                 analysis_result=analysis_result,
                 num_of_fields=3
@@ -85,8 +85,8 @@ class TextAnalysisService:
         return EmotionAnalysisResponse(**parsed_result)
 
     def abuse_analysis(self) -> AbuseAnalysisResponse:
-        analysis_result: dict[str, float] = abuse(self.text.text)
-        parsed_result: dict[str, int] = self.round_dict_values(analysis_result)
+        analysis_result = abuse(self.text.text)
+        parsed_result = self.round_dict_values(analysis_result)
 
         return AbuseAnalysisResponse(**parsed_result)
 

@@ -1,4 +1,5 @@
 from datetime import date, datetime
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -31,15 +32,15 @@ class FirstModeQueryInDatabase(FirstModeQuery):
 
 
 class SecondModeQuery(BaseQuery):
-    negative: int | None
-    neutral: int | None
-    positive: int | None
-    angry: int | None
-    sad: int | None
-    excited: int | None
-    bored: int | None
-    happy: int | None
-    fear: int | None
+    negative: Optional[int]
+    neutral: Optional[int]
+    positive: Optional[int]
+    angry: Optional[int]
+    sad: Optional[int]
+    excited: Optional[int]
+    bored: Optional[int]
+    happy: Optional[int]
+    fear: Optional[int]
 
 
 class SecondModeQueryInDatabase(SecondModeQuery):
@@ -50,12 +51,12 @@ class ThirdModeQuery(BaseQuery):
     abusive: int
     hate_speech: int
     neither: int
-    angry: int | None
-    sad: int | None
-    excited: int | None
-    bored: int | None
-    happy: int | None
-    fear: int | None
+    angry: Optional[int]
+    sad: Optional[int]
+    excited: Optional[int]
+    bored: Optional[int]
+    happy: Optional[int]
+    fear: Optional[int]
 
 
 class ThirdModeQueryInDatabase(ThirdModeQuery):

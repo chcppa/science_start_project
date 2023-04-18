@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -9,7 +10,7 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    user_id: int | None = None
+    user_id: Optional[int] = None
 
 
 class BaseUser(BaseModel):

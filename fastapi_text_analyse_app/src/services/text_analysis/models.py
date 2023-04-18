@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel, Field
 
 
@@ -13,12 +15,12 @@ class ClassificationAnalysisResponse(BaseModel):
 
 
 class EmotionAnalysisResponse(BaseModel):
-    angry: int | None = Field(alias="Angry")
-    sad: int | None = Field(alias="Sad")
-    excited: int | None = Field(alias="Excited")
-    bored: int | None = Field(alias="Bored")
-    happy: int | None = Field(alias="Happy")
-    fear: int | None = Field(alias="Fear")
+    angry: Optional[int] = Field(alias="Angry")
+    sad: Optional[int] = Field(alias="Sad")
+    excited: Optional[int] = Field(alias="Excited")
+    bored: Optional[int] = Field(alias="Bored")
+    happy: Optional[int] = Field(alias="Happy")
+    fear: Optional[int] = Field(alias="Fear")
 
 
 class AbuseAnalysisResponse(BaseModel):

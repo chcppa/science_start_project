@@ -14,7 +14,7 @@ from orm.tables import (
 
 class BaseRepository:
 
-    def __init__(self, session_obj: Session | None = None):
+    def __init__(self, session_obj: Session):
         """
         Repositories can set up a session on their own.
         """
@@ -35,7 +35,7 @@ class BaseRepository:
 
 class UnitOfWork:
 
-    def __init__(self, session_obj: Session, repos_list: list[BaseRepository]):
+    def __init__(self, session_obj: Session, repos_list):
         self.repos_list = repos_list
         self.session = session_obj
 
@@ -62,14 +62,14 @@ class UserRepository(BaseRepository):
     def save(self, user: UserTable) -> None:
         self.session.add(user)
 
-    def get_by_username(self, username: str) -> UserTable | None:
+    def get_by_username(self, username: str):
         user = self.session.execute(
             select(UserTable).filter(UserTable.username == username)
         ).scalar()
 
         return user
 
-    def get_by_user_id(self, user_id: int) -> UserTable | None:
+    def get_by_user_id(self, user_id: int):
         user = self.session.execute(
             select(UserTable).filter(UserTable.id == user_id)
         ).scalar()
@@ -94,7 +94,7 @@ class BaseModeQueryRepository(ABC, BaseRepository):
 
     def save_query(
             self,
-            query: FirstModeQueryTable | SecondModeQueryTable | ThirdModeQueryTable
+            query
     ) -> None:
         self.session.add(query)
 

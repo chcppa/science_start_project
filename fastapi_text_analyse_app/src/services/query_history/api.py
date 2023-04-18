@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import List
 
 from fastapi import Depends, APIRouter
 
@@ -112,7 +113,7 @@ async def get_one_of_third_mode(*, user_id: int = Depends(get_current_user_id),
     return query_service.get_the_third_mode_query(user_id)
 
 
-@router.get("/mode/first/all", response_model=list[FirstModeQueryInDatabase])
+@router.get("/mode/first/all", response_model=List[FirstModeQueryInDatabase])
 async def get_all_of_first_mode(*, user_id: int = Depends(get_current_user_id),
                                 query_service: QueryHistoryService = Depends()):
     """
@@ -121,7 +122,7 @@ async def get_all_of_first_mode(*, user_id: int = Depends(get_current_user_id),
     return query_service.get_all_first_mode_queries(user_id)
 
 
-@router.get("/mode/second/all", response_model=list[SecondModeQueryInDatabase])
+@router.get("/mode/second/all", response_model=List[SecondModeQueryInDatabase])
 async def get_all_of_second_mode(*, user_id: int = Depends(get_current_user_id),
                                  query_service: QueryHistoryService = Depends()):
     """
@@ -130,7 +131,7 @@ async def get_all_of_second_mode(*, user_id: int = Depends(get_current_user_id),
     return query_service.get_all_second_mode_queries(user_id)
 
 
-@router.get("/mode/third/all", response_model=list[ThirdModeQueryInDatabase])
+@router.get("/mode/third/all", response_model=List[ThirdModeQueryInDatabase])
 async def get_all_of_third_mode(*, user_id: int = Depends(get_current_user_id),
                                 query_service: QueryHistoryService = Depends()):
     """

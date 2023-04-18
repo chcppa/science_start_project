@@ -47,7 +47,7 @@ class QueryHistoryService:
 
         return parsed_query
 
-    def get_all_first_mode_queries(self, user_id: int) -> list[FirstModeQueryInDatabase]:
+    def get_all_first_mode_queries(self, user_id: int):
         repo = FirstModeQueryRepository(self.session)
         return list(map(lambda x: FirstModeQueryInDatabase.from_orm(x[0]), repo.get_all_by_user_id(user_id)))
 
@@ -55,7 +55,7 @@ class QueryHistoryService:
         repo = FirstModeQueryRepository(self.session)
         return repo.get_by_user_id(user_id)
 
-    def get_all_second_mode_queries(self, user_id: int) -> list[SecondModeQueryInDatabase]:
+    def get_all_second_mode_queries(self, user_id: int):
         repo = SecondModeQueryRepository(self.session)
         return list(map(lambda x: SecondModeQueryInDatabase.from_orm(x[0]), repo.get_all_by_user_id(user_id)))
 
@@ -63,7 +63,7 @@ class QueryHistoryService:
         repo = SecondModeQueryRepository(self.session)
         return repo.get_by_user_id(user_id)
 
-    def get_all_third_mode_queries(self, user_id: int) -> list[ThirdModeQueryInDatabase]:
+    def get_all_third_mode_queries(self, user_id: int):
         repo = ThirdModeQueryRepository(self.session)
         return list(map(lambda x: ThirdModeQueryInDatabase.from_orm(x[0]), repo.get_all_by_user_id(user_id)))
 

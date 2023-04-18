@@ -7,7 +7,7 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    server_host: str = "127.0.0.1"
+    server_host: str = "0.0.0.0"
     server_port: int = 8000
 
     db_host: str
@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     db_name: str
     db_user: str
     db_password: str
-    db_url: str
 
     paralleldots_api_key: str
 

@@ -15,6 +15,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: pgdb
+      POSTGRES_DB: database_45be
     volumes:
       - ./pg_dump:/var/lib/postgresql
